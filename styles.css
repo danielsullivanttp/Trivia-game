@@ -1,0 +1,34 @@
+.correct {
+    background-color: #4caf50;
+    color: white;
+    border-color: #388e3c;
+}
+
+.wrong{
+    background-color: #e53935;
+    color: white;
+    border-color: #c62828;
+}
+
+.disabled{
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
+}
+
+.answered{
+    border-left: 4px solid #90a4ae;   
+}
+
+.hidden{
+    display: none;
+}
+
+#end-screen{
+    background-color: blue;
+    color: red;
+    font-size: 40px;
+}
+
+
+
