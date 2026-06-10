@@ -62,7 +62,7 @@ function loadQuestion(index) {
    //    hint: convert answerBtnsNodeList to a real array first, then use forEach
 
    // 5. Hide the next button
-questionCard.classList.remove("answered");
+   questionCard.classList.remove("answered");
    // 6. Remove the "answered" class from questionCard
 };
 
@@ -92,9 +92,44 @@ console.log(answerBtnsNodeList);
 console.log(btnsArray);
 console.log(btnsArray2);
 
-// getElementsByClassName returns an HTMLCollection.
-// querySelectorAll returns a NodeList.
-// To use .map() on either, convert with [Array.from() or [...answerBtnsNodeList].
+answerList.addEventListener("click", (event) => {
+   if(event.target.tagName !== "BUTTON") {
+      return;
+   }
+   // 1. If the click was not on a BUTTON element, return early and do nothing
+   //    hint: check event.target.tagName — it will be the string "BUTTON" if a button was clicked
+   
+   const clickedIndex = btnsArray.indexOf(event.target);
+   // 2. Store the clicked button and figure out which index it is in the list
+   //    hint: convert answerBtnsNodeList to an array and use .indexOf(event.target)
+
+   const correctIndex = questions[currentIndex].correct;
+   // 3. Get the correct answer index from the current question in the data array
+
+   if(clickedIndex === correctIndex) {
+      event.target.classList.add("correct");
+      score++;
+      scoreDisplay.textContent = score;
+   } else {
+      event.target.classList.add("wrong");
+      btnsArray[correctIndex].classList.add("correct");
+   }
+   // 4. Compare: did the player pick the right one?
+   //    - If correct: add the "correct" class to the clicked button, increment score,
+   //      and update scoreDisplay.textContent
+   //    - If wrong: add the "wrong" class to the clicked button,
+   //      and add "correct" to the button at the correct index to reveal it
+   
+   btnsArray.forEach((btn) => {
+      btn.classList.add("disabled");
+   });
+   // 5. Disable all four answer buttons so the player can't change their answer
+   //    hint: convert to a real array and use forEach to add "disabled" to each
+   
+   questionCard.classList.add("answered");
+   nextBtn.classList.remove("hidden");
+   // 6. Add "answered" to questionCard and remove "hidden" from nextBtn   
+});
 
 gameTitle.textContent = "⚡ Quick Fire Trivia";
 console.log("First question:", questionText.textContent);
@@ -115,3 +150,9 @@ questionCard.classList.remove("answered")
 
 loadQuestion(0);
 
+// Why does clicking a button inside #answer-list trigger this listener?
+// Answer: Because of bubbling- When I click a button it bubbles up through the DOM tree.
+
+// What is the difference between event.target and event.currentTarget here?
+// event.target  → The actual button element that was pressed
+// event.currentTarget → The answer-list elemnt where the listener is attached
