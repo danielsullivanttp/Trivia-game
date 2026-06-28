@@ -53,6 +53,10 @@ const answerBtnsNodeList   = document.querySelectorAll(".answer-btn");
 const btnsArray            = Array.from(answerBtnsNodeList)
 const btnsArray2           = [...answerBtnsNodeList];
 
+// getElementsByClassName returns an ____HTML Collection____.
+// querySelectorAll returns a ____Node List____.
+// To use .map() on either, convert with __[...] (The spread operator)______.
+
 let currentIndex = 0;
 let score = 0    ;
 
@@ -75,7 +79,8 @@ function loadQuestion(currentIndex) {
    
   const currentQuestion = questions[currentIndex];
   const currNum = currentIndex + 1;
-   
+   // 1. Get the current question object out of the questions array using index
+    
    questionNumber.textContent = "Question " + currNum + " of " + questions.length
    // 2. Update questionNumber.textContent — should read "Question X of Y"
    //    hint: use index + 1 for the display number, questions.length for the total
